@@ -20,17 +20,8 @@ export default function StudentDashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check authentication
-    const checkAuth = async () => {
-      const response = await fetch('/api/auth/verify', { method: 'GET' })
-      if (!response.ok) {
-        router.push('/login')
-      } else {
-        setLoading(false)
-      }
-    }
-
-    checkAuth()
+    // Load initial data
+    setLoading(false)
   }, [router])
 
   const handleJoinClass = async (e: React.FormEvent) => {

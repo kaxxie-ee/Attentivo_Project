@@ -20,16 +20,8 @@ export default function TeacherDashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const response = await fetch('/api/auth/verify', { method: 'GET' })
-      if (!response.ok) {
-        router.push('/login')
-      } else {
-        setLoading(false)
-      }
-    }
-
-    checkAuth()
+    // Load initial data
+    setLoading(false)
   }, [router])
 
   const handleCreateClass = async (e: React.FormEvent) => {
