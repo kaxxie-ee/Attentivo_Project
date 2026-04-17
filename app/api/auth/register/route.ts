@@ -13,9 +13,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (!['student', 'teacher'].includes(role)) {
+    if (!['learner', 'teacher'].includes(role)) {
       return NextResponse.json(
-        { error: 'Invalid role' },
+        { error: 'Invalid role. Must be "learner" or "teacher"' },
         { status: 400 }
       )
     }
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
         {
           email,
           password, // In production, hash this with bcrypt
-          name,
+          full_name: name,
           role
         }
       ])
@@ -59,9 +59,9 @@ export async function POST(request: NextRequest) {
     const response = NextResponse.json(
       { 
         user: {
-          id: newUser.id,
+          id: newUser.user_id,
           email: newUser.email,
-          name: newUser.name,
+          name: newUser.full_name,
           role: newUser.role
         }
       },
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
 
     response.cookies.set({
       name: 'auth-token',
-      value: newUser.id,
+      value: String(newUser.user_id),
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
