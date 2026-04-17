@@ -14,18 +14,19 @@ export async function POST(request: NextRequest) {
     }
 
     // Query user from database
-    const { data: user, error: userError } = await supabase
+    const { data: users, error: userError } = await supabase
       .from('users')
       .select('*')
       .eq('email', email)
-      .single()
 
-    if (userError || !user) {
+    if (userError || !users || users.length === 0) {
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       )
     }
+
+    const user = users[0]
 
     // Simple password check (in production, use bcrypt)
     if (user.password !== password) {
