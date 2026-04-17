@@ -21,13 +21,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    const { data: existingUser } = await supabase
+    const { data: existingUser, error: checkError } = await supabase
       .from('users')
-      .select('id')
+      .select('user_id')
       .eq('email', email)
-      .single()
 
-    if (existingUser) {
+    if (existingUser && existingUser.length > 0) {
       return NextResponse.json(
         { error: 'User already exists' },
         { status: 409 }
@@ -49,8 +48,9 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (insertError) {
+      console.error('[v0] Insert error:', insertError)
       return NextResponse.json(
-        { error: 'Failed to create user' },
+        { error: 'Failed to create user: ' + insertError.message },
         { status: 500 }
       )
     }
