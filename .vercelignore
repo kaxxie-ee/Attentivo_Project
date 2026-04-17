@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+.env.example
+.env.local
+.env.development.local
+node_modules
+.next
+coverage
