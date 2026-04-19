@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Query user from database
-    const { data: users, error: userError } = await supabase
+    const { data: users, error: userError } = await supabaseAdmin
       .from('users')
       .select('*')
       .eq('email', email)
