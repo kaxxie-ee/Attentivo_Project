@@ -10,7 +10,7 @@ export default function RegisterPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState<'student' | 'teacher'>('student')
+  const [role, setRole] = useState<'learner' | 'teacher'>('learner')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -34,7 +34,7 @@ export default function RegisterPage() {
 
       const data = await response.json()
       
-      if (data.user.role === 'student') {
+      if (data.user.role === 'learner') {
         router.push('/student')
       } else if (data.user.role === 'teacher') {
         router.push('/teacher')
@@ -112,10 +112,10 @@ export default function RegisterPage() {
               <select
                 id="role"
                 value={role}
-                onChange={(e) => setRole(e.target.value as 'student' | 'teacher')}
+                onChange={(e) => setRole(e.target.value as 'learner' | 'teacher')}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="student">Student</option>
+                <option value="learner">Student</option>
                 <option value="teacher">Teacher</option>
               </select>
             </div>
