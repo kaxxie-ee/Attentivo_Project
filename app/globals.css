@@ -12,11 +12,11 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 10%;
-    --primary: 240 84% 55%;
+    --primary: 0 80% 32%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 46 87% 51%;
-    --secondary-foreground: 0 0% 10%;
-    --accent: 280 85% 55%;
+    --secondary: 0 75% 35%;
+    --secondary-foreground: 0 0% 100%;
+    --accent: 0 85% 38%;
     --accent-foreground: 0 0% 100%;
     --muted: 0 0% 92%;
     --muted-foreground: 0 0% 45%;

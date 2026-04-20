@@ -34,6 +34,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Create new user
+    console.log('[v0] Attempting to insert user:', { email, name, role })
+    console.log('[v0] Service role key configured:', !!process.env.SUPABASE_SERVICE_ROLE_KEY)
+    
     const { data: newUser, error: insertError } = await supabaseAdmin
       .from('users')
       .insert([
@@ -48,12 +51,16 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (insertError) {
-      console.error('[v0] Insert error:', insertError)
+      console.error('[v0] Insert error details:', insertError)
+      console.error('[v0] Error code:', insertError.code)
+      console.error('[v0] Error message:', insertError.message)
       return NextResponse.json(
         { error: 'Failed to create user: ' + insertError.message },
         { status: 500 }
       )
     }
+    
+    console.log('[v0] User created successfully:', newUser.user_id)
 
     // Create response with auth token
     const response = NextResponse.json(

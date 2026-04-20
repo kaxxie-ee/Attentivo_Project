@@ -13,6 +13,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 // Server-side Supabase instance (use for API routes with service role)
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 
+if (!supabaseServiceRoleKey) {
+  console.warn('[v0] SUPABASE_SERVICE_ROLE_KEY is not configured - API routes will fail')
+}
+
 export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey, {
   auth: {
     autoRefreshToken: false,
